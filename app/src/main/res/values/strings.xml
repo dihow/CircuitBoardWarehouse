@@ -1,0 +1,61 @@
+<resources>
+    <string name="app_name">CircuitBoardWarehouse</string>
+
+    <string name="circuits_list_button">Платы на складе</string>
+    <string name="components_list_button">Компоненты на складе</string>
+    <string name="clients_list_button">Клиенты</string>
+    <string name="orders_list_button">Заказы</string>
+    <string name="exit_button">Выход</string>
+
+    <string name="add_client">Add Client</string>
+    <string name="client_type">Тип клиента</string>
+    <string name="phone">Телефон</string>
+    <string name="email">Email</string>
+    <string name="full_name">ФИО</string>
+    <string name="address">Адрес</string>
+    <string name="age">Возраст</string>
+    <string name="company_name">Название компании</string>
+    <string name="inn">ИНН</string>
+    <string name="contact_person">Контактное лицо</string>
+    <string name="legal_address">Юридический адрес</string>
+    <string name="actual_address">Фактический адрес</string>
+    <string name="save">Сохранить</string>
+
+    <string name="physical_person">Физическое лицо</string>
+    <string name="legal_entity">Юридическое лицо</string>
+    <string name="add_component">Добавить компонент</string>
+    <string name="add_pcb">Добавить плату</string>
+    <string name="name">Название</string>
+    <string name="description">Описание</string>
+    <string name="price">Стоимость</string>
+    <string name="total_stock">Общее количество на складе</string>
+    <string name="ordered_quantity">Заказанное количество</string>
+    <string name="length">Длина</string>
+    <string name="width">Ширина</string>
+    <string name="layer_count">Количество слоёв</string>
+    <string name="manage_components">Компоненты платы</string>
+    <string name="comment">Комментарий</string>
+    <string name="serial_number">Серийный номер</string>
+    <string name="manufacturer">Производитель</string>
+    <string name="add_order">Добавить заказ</string>
+    <string name="status">Статус заказа</string>
+    <string name="shipping_company">Транспортная компания</string>
+    <string name="shipping_date">Дата отгрузки</string>
+    <string name="cart_button">Товары заказа</string>
+    <string name="add_order_item">Добавить товар</string>
+    <string name="delete">Удалить</string>
+    <string name="price_per_unit">Цена за 1 шт.</string>
+    <string name="batch">Партия</string>
+    <string name="movements_button">История движений</string>
+
+    <string-array name="client_type_spinner_items">
+        <item>@string/physical_person</item>
+        <item>@string/legal_entity</item>
+    </string-array>
+    <string-array name="status_spinner_items">
+        <item>Не подтверждён</item>
+        <item>Оплачен</item>
+        <item>Готов</item>
+        <item>Отправлен</item>
+    </string-array>
+</resources>

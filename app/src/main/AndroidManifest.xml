@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_AUDIO" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
+
+    <application
+        android:name=".PcbWarehouseApplication"
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CircuitBoardWarehouse"
+        tools:targetApi="31">
+        <activity
+            android:name=".activity.LoginActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MovementsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.CartActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.OrderEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.OrdersListActivity"
+            android:exported="false" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity
+            android:name=".activity.ComponentEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ComponentsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PcbComponentsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PcbEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ClientEditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.ClientsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.PcbsListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:exported="true" />
+    </application>
+</manifest>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity"
+    android:orientation="vertical"
+    android:gravity="center_vertical|center_horizontal">
+
+    <Button
+        android:id="@+id/circuits_list_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/circuits_list_button"
+        />
+
+    <Button
+        android:id="@+id/components_list_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/components_list_button"
+        />
+
+    <Button
+        android:id="@+id/clients_list_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clients_list_button"
+        />
+
+    <Button
+        android:id="@+id/orders_list_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/orders_list_button"
+        />
+
+    <Button
+        android:id="@+id/movements_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/movements_button"
+        />
+
+    <Button
+        android:id="@+id/exit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/exit_button"
+        />
+
+</LinearLayout>

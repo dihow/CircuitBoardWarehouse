@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/circuit_card"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp"
+    android:background="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <!-- Изображение с фиксированным размером и отступами -->
+    <ImageView
+        android:id="@+id/circuit_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@drawable/circuit_placeholder_old"
+        android:padding="4dp"/>
+
+    <!-- Заголовок с выравниванием по центру изображения -->
+    <TextView
+        android:id="@+id/circuit_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        tools:text="Название схемы"
+        app:layout_constraintTop_toTopOf="@id/circuit_image"
+        app:layout_constraintStart_toEndOf="@id/circuit_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="16dp"/>
+
+    <!-- Дополнительное описание (опционально) -->
+    <TextView
+        android:id="@+id/circuit_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textColor="@android:color/darker_gray"
+        android:maxLines="2"
+        android:ellipsize="end"
+        tools:text="Краткое описание схемы..."
+        app:layout_constraintTop_toBottomOf="@id/circuit_title"
+        app:layout_constraintStart_toStartOf="@id/circuit_title"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"/>
+
+    <!-- Разделитель между элементами -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#EEEEEE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
