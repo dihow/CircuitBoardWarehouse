@@ -16,6 +16,9 @@ import kotlin.math.abs
 
 private const val DATABASE_NAME = "warehouse-database"
 
+//private const val PREFS_NAME = "app_prefs"
+//private const val FIRST_RUN_KEY = "first_run"
+
 class WarehouseRepository private constructor(context: Context) {
 //    init {
 //        context.deleteDatabase("warehouse-database")
@@ -196,19 +199,16 @@ class WarehouseRepository private constructor(context: Context) {
     fun getClientById(id: Long) = clientDao.getById(id)
 
     suspend fun getClientIdByName(name: String): Long? {
-        // Сначала проверяем в таблице физических лиц
         val physicalPersonId = clientDao.getPersonId(name)
         if (physicalPersonId != null) {
             return physicalPersonId
         }
 
-        // Если не нашли, проверяем в таблице юридических лиц
         val legalEntityId = clientDao.getEntityId(name)
         if (legalEntityId != null) {
             return legalEntityId
         }
 
-        // Если клиент не найден ни в одной таблице
         return null
     }
 
@@ -312,7 +312,7 @@ class WarehouseRepository private constructor(context: Context) {
         val description = if (difference > 0)
             "Поступление на склад ${abs(difference)} компонентов \"$componentName\""
         else
-            "Расход со склада ${abs(difference)} компонентов \"$componentName\""
+            "Списание со склада ${abs(difference)} компонентов \"$componentName\""
 
         val movement = Movement(
             movementType = movementType,
@@ -338,7 +338,7 @@ class WarehouseRepository private constructor(context: Context) {
         val description = if (difference > 0)
             "Поступление на склад ${abs(difference)} плат \"$pcbName\""
         else
-            "Расход со склада ${abs(difference)} плат \"$pcbName\""
+            "Списание со склада ${abs(difference)} плат \"$pcbName\""
 
         val movement = Movement(
             movementType = movementType,
@@ -356,6 +356,14 @@ class WarehouseRepository private constructor(context: Context) {
 //            populateDatabaseWithTestData()
 //        }
 //    }
+
+    init {
+        CoroutineScope(Dispatchers.IO).launch {
+            if (employeeDao.getCount() == 0) {
+                initEmployees()
+            }
+        }
+    }
 
     suspend fun populateDatabaseWithTestData() {
         withContext(Dispatchers.IO) {
@@ -596,6 +604,64 @@ class WarehouseRepository private constructor(context: Context) {
             var salt3 = generateSalt()
             val hash3 = hashPasswordWithSalt("qwerty", salt3)
             updatePasswordById(3, "qwerty", hash3, salt3)
+        }
+    }
+
+    suspend fun initEmployees() {
+        withContext(Dispatchers.IO) {
+            val emp1 = employeeDao.insert(
+                Employee(
+                    fullName = "Иванов Иван Иванович",
+                    address = "Новокубанский, 11",
+                    phone = "79197326272",
+                    email = "ivanov@yandex.ru",
+                    position = "Кладовщик",
+                    salary = 40000.0,
+                    login = "",
+                    passwordHash = "",
+                    salt = ""
+                )
+            )
+
+            val emp2 = employeeDao.insert(
+                Employee(
+                    fullName = "Борисов Анатолий Сергеевич",
+                    address = "40-летия Победы, 71",
+                    phone = "79193335216",
+                    email = "borisov@yandex.ru",
+                    position = "Системный администратор",
+                    salary = 100000.0,
+                    login = "",
+                    passwordHash = "",
+                    salt = ""
+                )
+            )
+
+            val emp3 = employeeDao.insert(
+                Employee(
+                    fullName = "Валерьев Николай Игоревич",
+                    address = "Детская, 25",
+                    phone = "79197483472",
+                    email = "valeryev@yandex.ru",
+                    position = "Монтажник",
+                    salary = 90000.0,
+                    login = "",
+                    passwordHash = "",
+                    salt = ""
+                )
+            )
+
+            var salt1 = generateSalt()
+            val hash1 = hashPasswordWithSalt("123456", salt1)
+            updatePasswordById(emp1, "user", hash1, salt1)
+
+            var salt2 = generateSalt()
+            val hash2 = hashPasswordWithSalt("adm", salt2)
+            updatePasswordById(emp2, "admin", hash2, salt2)
+
+            var salt3 = generateSalt()
+            val hash3 = hashPasswordWithSalt("qwerty", salt3)
+            updatePasswordById(emp3, "qwerty", hash3, salt3)
         }
     }
 

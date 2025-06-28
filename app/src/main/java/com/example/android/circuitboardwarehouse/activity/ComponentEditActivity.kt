@@ -45,22 +45,6 @@ class ComponentEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_component_edit)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            val originalPaddingLeft = v.paddingLeft
-            val originalPaddingTop = v.paddingTop
-            val originalPaddingRight = v.paddingRight
-            val originalPaddingBottom = v.paddingBottom
-
-            v.setPadding(
-                originalPaddingLeft + systemBars.left,
-                originalPaddingTop + systemBars.top,
-                originalPaddingRight + systemBars.right,
-                originalPaddingBottom + systemBars.bottom
-            )
-            insets
-        }
 
         dynamicFieldsLayout = findViewById(R.id.dynamic_fields_layout)
         typeSpinner = findViewById(R.id.component_type_spinner)
@@ -126,7 +110,7 @@ class ComponentEditActivity : AppCompatActivity() {
             if (isEditMode) {
                 viewModel.updateComponent(
                     componentId = componentId!!,
-                    serialNumber = nameEditText.text.toString(),
+                    name = nameEditText.text.toString(),
                     manufacturer = manufacturerEditText.text.toString(),
                     price = priceEditText.text.toString(),
                     totalStock = totalStockEditText.text.toString()

@@ -39,22 +39,6 @@ class OrderEditActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_order_edit)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            val originalPaddingLeft = v.paddingLeft
-            val originalPaddingTop = v.paddingTop
-            val originalPaddingRight = v.paddingRight
-            val originalPaddingBottom = v.paddingBottom
-
-            v.setPadding(
-                originalPaddingLeft + systemBars.left,
-                originalPaddingTop + systemBars.top,
-                originalPaddingRight + systemBars.right,
-                originalPaddingBottom + systemBars.bottom
-            )
-            insets
-        }
 
         viewModel = ViewModelProvider(this)[OrderEditViewModel::class.java]
         orderId = intent.getLongExtra(EXTRA_ORDER_ID, -1).takeIf { it != -1L }

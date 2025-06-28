@@ -23,7 +23,10 @@ class PcbEditViewModel : ViewModel() {
 
     fun addPcb(pcb: Pcb) {
         viewModelScope.launch {
-            _pcbId.value = warehouseRepository.addPcb(pcb)
+            runInTransaction {
+                _pcbId.value = warehouseRepository.addPcb(pcb)
+                handlePcbStockChange(pcbId.value!!, 0, pcb.totalStock, pcb.name)
+            }
         }
     }
 
@@ -91,8 +94,12 @@ class PcbEditViewModel : ViewModel() {
                             "Недостаточно компонентов ${component.name}. Дефицит: ${abs(newStockQuantity)}")
                     }
 
-                    warehouseRepository
-                        .updateComponent(component.copy(stockQuantity = newStockQuantity))
+                    runInTransaction {
+                        warehouseRepository
+                            .updateComponent(component.copy(stockQuantity = newStockQuantity))
+                        handleComponentStockChange(component.id, component.stockQuantity,
+                            newStockQuantity, component.name)
+                    }
                 }
 
                 val updatedPcb = existingPcb.copy(
@@ -125,4 +132,14 @@ class PcbEditViewModel : ViewModel() {
         newStock: Int,
         pcbName: String
     ) = warehouseRepository.handlePcbStockChange(pcbId, oldStock, newStock, pcbName)
+
+    private suspend fun handleComponentStockChange(
+        componentId: Long,
+        oldStock: Int,
+        newStock: Int,
+        componentName: String
+    ) = warehouseRepository.handleComponentStockChange(componentId, oldStock, newStock, componentName)
+
+    suspend fun <R> runInTransaction(block: suspend () -> R) =
+        warehouseRepository.runInTransaction(block)
 }

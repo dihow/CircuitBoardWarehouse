@@ -23,6 +23,9 @@ interface EmployeeDao {
     @Query("SELECT * FROM employees WHERE id = :id")
     suspend fun getById(id: Long): Employee?
 
+    @Query("SELECT count(*) from employees")
+    suspend fun getCount(): Int
+
     @Insert
     suspend fun insert(employee: Employee): Long
 

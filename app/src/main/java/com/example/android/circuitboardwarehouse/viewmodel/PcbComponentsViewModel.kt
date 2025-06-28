@@ -11,10 +11,13 @@ import com.example.android.circuitboardwarehouse.database.PcbComponentInfo
 import com.example.android.circuitboardwarehouse.WarehouseRepository
 import com.example.android.circuitboardwarehouse.database.Component
 import com.example.android.circuitboardwarehouse.database.PcbComponent
+import com.example.android.circuitboardwarehouse.database.Movement // Импортируем класс Movement
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.* // Import для Date
+import kotlin.math.abs
 
 class PcbComponentsViewModel : ViewModel() {
     private val warehouseRepository = WarehouseRepository.get()

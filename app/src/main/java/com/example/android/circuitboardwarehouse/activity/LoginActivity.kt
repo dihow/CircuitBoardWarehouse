@@ -33,22 +33,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_login)
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
-            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
-
-            val originalPaddingLeft = v.paddingLeft
-            val originalPaddingTop = v.paddingTop
-            val originalPaddingRight = v.paddingRight
-            val originalPaddingBottom = v.paddingBottom
-
-            v.setPadding(
-                originalPaddingLeft + systemBars.left,
-                originalPaddingTop + systemBars.top,
-                originalPaddingRight + systemBars.right,
-                originalPaddingBottom + systemBars.bottom
-            )
-            insets
-        }
 
         loginEditText = findViewById(R.id.login_edit_text)
         passwordEditText = findViewById(R.id.password_edit_text)

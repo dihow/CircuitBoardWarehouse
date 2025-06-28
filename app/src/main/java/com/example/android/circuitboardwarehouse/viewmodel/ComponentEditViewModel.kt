@@ -56,6 +56,16 @@ class ComponentEditViewModel : ViewModel() {
             )
             componentIdResult.postValue(componentId)
 
+            warehouseRepository.addMovement(
+                Movement(
+                    movementType = "Приход",
+                    productType = "Компонент",
+                    description = "Поступление на склад ${totalStock.toInt()} компонентов \"$serialNumber\"",
+                    value = totalStock.toInt(),
+                    date = System.currentTimeMillis()
+                )
+            )
+
             val details = componentDetails.value
 
             if (details != null) {
@@ -116,14 +126,36 @@ class ComponentEditViewModel : ViewModel() {
         }
     }
 
-    fun updateComponent(componentId: Long, serialNumber: String, manufacturer: String, price: String, totalStock: String) {
+    fun updateComponent(componentId: Long, name: String, manufacturer: String, price: String, totalStock: String) {
         viewModelScope.launch {
+            val oldComponent = warehouseRepository.getComponentById(componentId)
+            val newQuantity = totalStock.toInt()
+
             warehouseRepository.updateComponent(
-                Component(id = componentId,
+                Component(
+                    id = componentId,
                     type = componentDetails.value?.type.toString(),
-                    name = serialNumber, manufacturer = manufacturer,
-                    price = price.toDouble(), stockQuantity = totalStock.toInt())
+                    name = name, manufacturer = manufacturer,
+                    price = price.toDouble(), stockQuantity = totalStock.toInt()
+                )
             )
+
+            if (oldComponent != null && oldComponent.stockQuantity != newQuantity) {
+                val difference = newQuantity - oldComponent.stockQuantity
+                val movementType = if (difference > 0) "Поступление" else "Списание"
+
+                warehouseRepository.addMovement(
+                    Movement(
+                        movementType = movementType,
+                        productType = "Компонент",
+                        description = if (difference > 0)
+                            "Поступление на склад $difference компонентов \"$name\""
+                        else "Списание со склада ${abs(difference)} компонентов \"$name\"",
+                        value = abs(difference),
+                        date = System.currentTimeMillis()
+                    )
+                )
+            }
 
             val details = componentDetails.value
 
@@ -133,53 +165,73 @@ class ComponentEditViewModel : ViewModel() {
                 when (details) {
                     is ResistorDetails -> {
                         warehouseRepository.addComponentSpecification(
-                            ComponentSpecification(componentId = componentId,
+                            ComponentSpecification(
+                                componentId = componentId,
                                 specification = "Сопротивление",
-                                specificationValue = details.resistance.toString())
+                                specificationValue = details.resistance.toString()
+                            )
                         )
                         warehouseRepository.addComponentSpecification(
-                            ComponentSpecification(componentId = componentId,
+                            ComponentSpecification(
+                                componentId = componentId,
                                 specification = "Допуск",
-                                specificationValue = details.tolerance.toString())
+                                specificationValue = details.tolerance.toString()
+                            )
                         )
                         warehouseRepository.addComponentSpecification(
-                            ComponentSpecification(componentId = componentId,
+                            ComponentSpecification(
+                                componentId = componentId,
                                 specification = "Мощность",
-                                specificationValue = details.powerRating.toString())
+                                specificationValue = details.powerRating.toString()
+                            )
                         )
                     }
+
                     is CapacitorDetails -> {
                         warehouseRepository.addComponentSpecification(
-                            ComponentSpecification(componentId = componentId,
+                            ComponentSpecification(
+                                componentId = componentId,
                                 specification = "Ёмкость",
-                                specificationValue = details.capacitance.toString())
+                                specificationValue = details.capacitance.toString()
+                            )
                         )
                         warehouseRepository.addComponentSpecification(
-                            ComponentSpecification(componentId = componentId,
+                            ComponentSpecification(
+                                componentId = componentId,
                                 specification = "Напряжение",
-                                specificationValue = details.voltageRating.toString())
+                                specificationValue = details.voltageRating.toString()
+                            )
                         )
                         warehouseRepository.addComponentSpecification(
-                            ComponentSpecification(componentId = componentId,
+                            ComponentSpecification(
+                                componentId = componentId,
                                 specification = "Максимальная температура",
-                                specificationValue = details.maxTemperature.toString())
+                                specificationValue = details.maxTemperature.toString()
+                            )
                         )
                     }
+
                     is DiodeDetails -> {
                         warehouseRepository.addComponentSpecification(
-                            ComponentSpecification(componentId = componentId,
+                            ComponentSpecification(
+                                componentId = componentId,
                                 specification = "Падение напряжения",
-                                specificationValue = details.forwardVoltage.toString())
+                                specificationValue = details.forwardVoltage.toString()
+                            )
                         )
                         warehouseRepository.addComponentSpecification(
-                            ComponentSpecification(componentId = componentId,
+                            ComponentSpecification(
+                                componentId = componentId,
                                 specification = "Обратное напряжение",
-                                specificationValue = details.reverseVoltage.toString())
+                                specificationValue = details.reverseVoltage.toString()
+                            )
                         )
                         warehouseRepository.addComponentSpecification(
-                            ComponentSpecification(componentId = componentId,
+                            ComponentSpecification(
+                                componentId = componentId,
                                 specification = "Прямой ток",
-                                specificationValue = details.forwardCurrent.toString())
+                                specificationValue = details.forwardCurrent.toString()
+                            )
                         )
                     }
                 }
