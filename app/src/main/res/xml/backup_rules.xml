@@ -10,4 +10,8 @@
    <include domain="sharedpref" path="."/>
    <exclude domain="sharedpref" path="device.xml"/>
 -->
+
+    <include domain="database" path="warehouse-database" table="pcb"/>
+    <include domain="database" path="warehouse-database" table="components"/>
+    <include domain="database" path="warehouse-database" table="orders"/>
 </full-backup-content>
