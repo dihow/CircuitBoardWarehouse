@@ -8,5 +8,6 @@ class WarehouseBackupAgent : BackupAgentHelper() {
     override fun onCreate() {
         addHelper("files", FileBackupHelper(this, "config.json"))
         addHelper("prefs", SharedPreferencesBackupHelper(this, "app_prefs"))
+        addHelper("db", FileBackupHelper(this, "../databases/warehouse-database"))
     }
 }

@@ -11,7 +11,7 @@
    <exclude domain="sharedpref" path="device.xml"/>
 -->
 
-    <include domain="database" path="warehouse-database" table="pcb"/>
-    <include domain="database" path="warehouse-database" table="components"/>
-    <include domain="database" path="warehouse-database" table="orders"/>
+    <include domain="database" path="."/>
+    <include domain="sharedpref" path="."/>
+    <include domain="file" path="config.json"/>
 </full-backup-content>

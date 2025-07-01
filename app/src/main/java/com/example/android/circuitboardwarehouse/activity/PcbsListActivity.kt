@@ -108,7 +108,7 @@ class PcbsListActivity : AppCompatActivity() {
 
         override fun bind(item: Pcb) {
             nameTextView.text = item.name
-            descriptionTextView.text = item.description ?: "No description"
+            descriptionTextView.text = item.description ?: "Описание отсутствует"
             priceTextView.text = "Стоимость: ${item.price} руб."
             stockTextView.text = "Всего на складе: ${item.totalStock} шт."
             item.imagePath?.let { path ->

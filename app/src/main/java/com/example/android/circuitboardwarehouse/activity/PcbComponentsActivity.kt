@@ -88,7 +88,7 @@ class PcbComponentsActivity : AppCompatActivity() {
             componentNameTextView.text = "Наименование: ${item.name}"
             componentTypeTextView.text = item.type
             countTextView.text = "Количество на плате: ${item.count}"
-            coordinatesTextView.text = "Координаты: ${item.coordinates ?: "N/A"}"
+            coordinatesTextView.text = "Координаты: ${item.coordinates ?: "-"}"
 
             itemView.setOnClickListener {
                 val intent = ComponentEditActivity.newIntent(itemView.context, item.id)

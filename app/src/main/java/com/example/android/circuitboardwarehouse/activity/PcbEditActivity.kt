@@ -137,8 +137,8 @@ class PcbEditActivity : AppCompatActivity() {
         val batch = findViewById<TextInputEditText>(R.id.batch_edit_text).text.toString()
         val description = findViewById<TextInputEditText>(R.id.description_edit_text).text.toString()
         val price = findViewById<TextInputEditText>(R.id.price_edit_text).text.toString().toDoubleOrNull()
-        val totalStock = findViewById<TextInputEditText>(R.id.total_stock_edit_text).text.toString().toIntOrNull()
-        val orderedQuantity = findViewById<TextInputEditText>(R.id.ordered_quantity_edit_text).text.toString().toIntOrNull()
+        val totalStock = findViewById<TextInputEditText>(R.id.total_stock_edit_text).text.toString().toIntOrNull() ?: 0
+        val orderedQuantity = findViewById<TextInputEditText>(R.id.ordered_quantity_edit_text).text.toString().toIntOrNull() ?: 0
 
         val dateText = findViewById<TextInputEditText>(R.id.manufacturing_date_edit_text).text.toString()
         val dateFormat = SimpleDateFormat("dd.MM.yyyy", Locale.getDefault())
@@ -153,9 +153,8 @@ class PcbEditActivity : AppCompatActivity() {
         val layerCount = findViewById<TextInputEditText>(R.id.layer_count_edit_text).text.toString().toIntOrNull()
         val comment = findViewById<TextInputEditText>(R.id.comment_edit_text).text.toString()
 
-        if (name.isEmpty() || price == null || totalStock == null || orderedQuantity == null ||
-            length == null || width == null || layerCount == null || serialNumber.isEmpty() ||
-            batch.isEmpty()) {
+        if (name.isEmpty() || price == null || length == null || width == null ||
+            layerCount == null || serialNumber.isEmpty() || batch.isEmpty()) {
             Toast.makeText(this, "Заполните все необходимые поля", Toast.LENGTH_SHORT).show()
             return
         }
